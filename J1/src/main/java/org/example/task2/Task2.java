@@ -11,8 +11,7 @@ public class Task2 {
         long a = scanner.nextLong();
         System.out.print("Введите n ( 0 <= n <= 1000): ");
         int n = scanner.nextInt();
-        BigInteger num = BigInteger.valueOf(a).pow(n);
-        System.out.println("Number : " + num);
-        System.out.println("Result: " + num.toString().length());
+        int result = MathDegree.countNumberAfterDegree(a,n);
+        System.out.println("Result: " + result);
     }
 }

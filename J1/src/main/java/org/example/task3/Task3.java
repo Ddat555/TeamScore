@@ -14,42 +14,7 @@ public class Task3 {
             numbers[i] = rnd.nextInt(-100,100);
             System.out.print(numbers[i] + " ");
         }
-
-        //------------------------------
-        int digit = 0;
-        int count = 0;
-        int maxCount = 0;
-        for (int num : numbers){
-            int sign = getSign(num);
-            if(sign == 0){
-                if(count > maxCount){
-                    maxCount = count;
-                }
-                count = 1;
-                digit = 0;
-            }
-            else if(digit == 0 || sign == digit){
-                count++;
-                digit = sign;
-            }
-            else {
-                if(count > maxCount){
-                    maxCount = count;
-                }
-                count = 1;
-                digit = 0;
-            }
-        }
-
-        if (count > maxCount) {
-            maxCount = count;
-        }
+        int maxCount = Repetitions.countMaxRepeatSign(numbers);
         System.out.println("Result : " + maxCount);
-    }
-
-    private static int getSign(int num){
-        if(num > 0) return 1;
-        if(num < 0) return -1;
-        return 0;
     }
 }
