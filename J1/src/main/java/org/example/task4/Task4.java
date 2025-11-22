@@ -7,16 +7,16 @@ public class Task4 {
     public static void main(String[] args) {
         MonthInfo monthInfo = new MonthInfo();
         printInfo(monthInfo);
-        MonthInfo monthInfo2 = new MonthInfo(LocalDate.of(2023,11,12));
+        MonthInfo monthInfo2 = new MonthInfo(LocalDate.of(2023, 11, 12));
         printInfo(monthInfo2);
-        MonthInfo monthInfo3 = new MonthInfo(LocalDate.of(1900,1,1));
+        MonthInfo monthInfo3 = new MonthInfo(LocalDate.of(1900, 1, 1));
         printInfo(monthInfo3);
-        MonthInfo monthInfo4 = new MonthInfo(LocalDate.of(2020,2,12));
+        MonthInfo monthInfo4 = new MonthInfo(LocalDate.of(2020, 2, 12));
         printInfo(monthInfo4);
 
     }
 
-    private static void printInfo(MonthInfo monthInfo){
+    private static void printInfo(MonthInfo monthInfo) {
         System.out.println("CurrentMonthName: " + monthInfo.getCurrentMonthName());
         System.out.println("CurrentMonthNumber: " + monthInfo.getCurrentMonthNumber());
         System.out.println("FirstDayMonth: " + monthInfo.getFirstDayMonthName());

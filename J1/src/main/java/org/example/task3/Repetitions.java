@@ -24,7 +24,7 @@ public class Repetitions {
                     maxCount = count;
                 }
                 count = 1;
-                digit = 0;
+                digit = sign;
             }
         }
 

@@ -30,7 +30,7 @@ public class CountDown {
         long seconds = duration.toSeconds();
 
         var days = seconds / (24 * 3600);
-        var hours = (seconds % (24 * 3600) ) / 3600;
+        var hours = (seconds % (24 * 3600)) / 3600;
         var minutes = (seconds % 3600) / 60;
 
         return parseToResult(days, hours, minutes);
@@ -38,13 +38,13 @@ public class CountDown {
 
     private String parseToResult(long days, long hours, long minutes) {
         StringBuilder builder = new StringBuilder();
-        if(days > 0){
+        if (days > 0) {
             builder.append(days).append(" ").append(getDayWord(days)).append(" ");
         }
-        if(hours > 0){
+        if (hours > 0) {
             builder.append(hours).append(" ").append(getHourWord(hours)).append(" ");
         }
-        if(minutes > 0){
+        if (minutes > 0) {
             builder.append(minutes).append(" ").append(getMinuteWord(minutes)).append(" ");
         }
 
@@ -99,7 +99,6 @@ public class CountDown {
         }
         return "минут";
     }
-
 
 
 }
