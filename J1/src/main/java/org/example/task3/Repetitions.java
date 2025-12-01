@@ -8,10 +8,9 @@ public class Repetitions {
         int maxCount = 0;
         for (int num : numbers){
             int sign = getSign(num);
+
             if(sign == 0){
-                if(count > maxCount){
-                    maxCount = count;
-                }
+                maxCount = Math.max(maxCount, count);
                 count = 1;
                 digit = 0;
             }
@@ -20,9 +19,7 @@ public class Repetitions {
                 digit = sign;
             }
             else {
-                if(count > maxCount){
-                    maxCount = count;
-                }
+                maxCount = Math.max(maxCount, count);
                 count = 1;
                 digit = sign;
             }

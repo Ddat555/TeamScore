@@ -39,66 +39,34 @@ public class CountDown {
     private String parseToResult(long days, long hours, long minutes) {
         StringBuilder builder = new StringBuilder();
         if (days > 0) {
-            builder.append(days).append(" ").append(getDayWord(days)).append(" ");
+            builder.append(days).append(" ").append(getTimeForm(days, TimeForm.DAY)).append(" ");
         }
         if (hours > 0) {
-            builder.append(hours).append(" ").append(getHourWord(hours)).append(" ");
+            builder.append(hours).append(" ").append(getTimeForm(hours, TimeForm.HOUR)).append(" ");
         }
         if (minutes > 0) {
-            builder.append(minutes).append(" ").append(getMinuteWord(minutes)).append(" ");
+            builder.append(minutes).append(" ").append(getTimeForm(minutes, TimeForm.MINUTE)).append(" ");
         }
 
 
         return builder.toString();
     }
 
-    private String getDayWord(long number) {
+    private String getTimeForm(long number, TimeForm timeForm){
         long lastDigit = number % 10;
         long lastTwoDigits = number % 100;
 
         if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
-            return "дней";
+            return timeForm.getForm3();
+
         }
         if (lastDigit == 1) {
-            return "день";
+            return timeForm.getForm1();
+
         }
         if (lastDigit >= 2 && lastDigit <= 4) {
-            return "дня";
+            return timeForm.getForm2();
         }
-        return "дней";
+        return timeForm.getForm3();
     }
-
-    private String getHourWord(long number) {
-        long lastDigit = number % 10;
-        long lastTwoDigits = number % 100;
-
-        if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
-            return "часов";
-        }
-        if (lastDigit == 1) {
-            return "час";
-        }
-        if (lastDigit >= 2 && lastDigit <= 4) {
-            return "часа";
-        }
-        return "часов";
-    }
-
-    private String getMinuteWord(long number) {
-        long lastDigit = number % 10;
-        long lastTwoDigits = number % 100;
-
-        if (lastTwoDigits >= 11 && lastTwoDigits <= 14) {
-            return "минут";
-        }
-        if (lastDigit == 1) {
-            return "минута";
-        }
-        if (lastDigit >= 2 && lastDigit <= 4) {
-            return "минуты";
-        }
-        return "минут";
-    }
-
-
 }
