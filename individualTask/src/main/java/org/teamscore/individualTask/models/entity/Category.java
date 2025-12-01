@@ -27,5 +27,4 @@ public class Category {
     @ManyToMany(mappedBy = "categories")
     private Set<Expense> expenses = new HashSet<>();
 
-    //TODO : Добавить пользователя
 }
