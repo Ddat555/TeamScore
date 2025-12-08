@@ -18,7 +18,6 @@ class ShipmentDocument {
         this.documentId = documentId;
         this.documentDate = documentDate;
         this.order = order;
-        // Автоматически определяем тип по классу Order
         this.documentType = (order instanceof SaleOrder) ?
                 DocumentType.SALE : DocumentType.MOVING;
     }
@@ -42,22 +41,26 @@ class ShipmentDocument {
     /**
      * Суммарная стоимость товаров в документе.
      */
-    public BigDecimal totalAmount() {
-        return order.getTotalAmount();
+    double totalAmount() {
+        return order.getTotalAmount().doubleValue();
     }
 
     /**
      * Стоимость товара с переданным id.
      */
-    public BigDecimal itemAmount(String id) {
-        return order.itemAmount(id);
+    double itemAmount(String id) {
+        return order.itemAmount(id).doubleValue();
     }
 
     /**
      * Суммарная стоимость товаров, попадающих в список промо-акции.
      */
-    public BigDecimal promoSum(String[] promoArticles) {
-        return order.promoSum(promoArticles);
+    double promoSum(String[] promoArticles) {
+        return order.promoSum(promoArticles, 0.0).doubleValue();
+    }
+
+    double promoSum(String[] promoArticles, double discount) {
+        return order.promoSum(promoArticles, discount).doubleValue();
     }
 
     /**

@@ -1,10 +1,11 @@
 package org.example.task1;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+public abstract class Order {
     protected final List<OrderItem> orderItemList;
     protected final Storage fromStorage;
 
@@ -29,18 +30,24 @@ public class Order {
         return sum;
     }
 
-    public BigDecimal promoSum(String[] promoArticles){
+
+    public BigDecimal promoSum(String[] promoArticles, double discount){
         BigDecimal sum = BigDecimal.ZERO;
+        double mul = 1-discount/100.0;
         for(String promoArt: promoArticles){
             for(OrderItem item: orderItemList){
                 if(promoArt.equals(item.getArticle())){
-                    sum = sum.add(item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
+                    BigDecimal itemAmount = item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
+                    BigDecimal discounted = itemAmount.multiply(BigDecimal.valueOf(mul))
+                            .setScale(2, RoundingMode.CEILING);
+                    sum = sum.add(discounted);
                     break;
                 }
             }
         }
         return sum;
     }
+
 
     BigDecimal itemAmount(String id) {
         for(OrderItem item: orderItemList){
@@ -50,4 +57,6 @@ public class Order {
         }
         return BigDecimal.ZERO;
     }
+
+
 }

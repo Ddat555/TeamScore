@@ -1,5 +1,7 @@
 package org.example.task1;
 
+import java.math.BigDecimal;
+
 public class MovingOrder extends Order{
     private final Storage toStorage;
 
@@ -14,5 +16,10 @@ public class MovingOrder extends Order{
 
     boolean isInternalMovement() {
         return toStorage.getOwner().equals(fromStorage.getOwner());
+    }
+
+    @Override
+    public BigDecimal promoSum(String[] promoArticles, double discount) {
+        return super.promoSum(promoArticles, 0);
     }
 }
