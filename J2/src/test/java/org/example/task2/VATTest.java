@@ -13,12 +13,11 @@ class VATTest {
     private VAT vat;
 
 
-
     @Nested
-    class TestCase_1200_00_Without_VAT{
+    class TestCase_1200_00_Without_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal(1000), PriceType.WITHOUT_VAT);
         }
 
@@ -45,10 +44,10 @@ class VATTest {
     }
 
     @Nested
-    class TestCase_1200_00_VAT{
+    class TestCase_1200_00_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal(1200), PriceType.WITH_VAT);
         }
 
@@ -74,10 +73,10 @@ class VATTest {
     }
 
     @Nested
-    class TestCase_500_000_00_Without_VAT{
+    class TestCase_500_000_00_Without_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("416666.67"), PriceType.WITHOUT_VAT);
         }
 
@@ -103,10 +102,10 @@ class VATTest {
     }
 
     @Nested
-    class TestCase_500_000_00_VAT{
+    class TestCase_500_000_00_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("500000"), PriceType.WITH_VAT);
         }
 
@@ -133,10 +132,10 @@ class VATTest {
 
 
     @Nested
-    class TestCase_119_99_VAT{
+    class TestCase_119_99_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("119.99"), PriceType.WITH_VAT);
         }
 
@@ -163,10 +162,10 @@ class VATTest {
     }
 
     @Nested
-    class TestCase_119_99_Without_VAT{
+    class TestCase_119_99_Without_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("99.99"), PriceType.WITHOUT_VAT);
         }
 
@@ -192,10 +191,10 @@ class VATTest {
     }
 
     @Nested
-    class TestCase_99_99_VAT{
+    class TestCase_99_99_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("99.99"), PriceType.WITH_VAT);
         }
 
@@ -222,10 +221,10 @@ class VATTest {
     }
 
     @Nested
-    class TestCase_99_99_Without_VAT{
+    class TestCase_99_99_Without_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("83.32"), PriceType.WITHOUT_VAT);
         }
 
@@ -252,10 +251,10 @@ class VATTest {
     }
 
     @Nested
-    class TestCase_92_40_VAT{
+    class TestCase_92_40_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("92.40"), PriceType.WITH_VAT);
         }
 
@@ -282,10 +281,10 @@ class VATTest {
     }
 
     @Nested
-    class TestCase_92_40_Without_VAT{
+    class TestCase_92_40_Without_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("77.00"), PriceType.WITHOUT_VAT);
         }
 
@@ -313,10 +312,10 @@ class VATTest {
 
 
     @Nested
-    class TestCase_183_00_VAT{
+    class TestCase_183_00_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("183.00"), PriceType.WITH_VAT);
         }
 
@@ -343,10 +342,10 @@ class VATTest {
     }
 
     @Nested
-    class TestCase_183_00_Without_VAT{
+    class TestCase_183_00_Without_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("152.50"), PriceType.WITHOUT_VAT);
         }
 
@@ -373,10 +372,10 @@ class VATTest {
     }
 
     @Nested
-    class TestCase_5_94_VAT{
+    class TestCase_5_94_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("5.94"), PriceType.WITH_VAT);
         }
 
@@ -403,10 +402,10 @@ class VATTest {
     }
 
     @Nested
-    class TestCase_5_94_Without_VAT{
+    class TestCase_5_94_Without_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("4.95"), PriceType.WITHOUT_VAT);
         }
 
@@ -433,10 +432,10 @@ class VATTest {
     }
 
     @Nested
-    class TestCase_0_06_VAT{
+    class TestCase_0_06_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("0.06"), PriceType.WITH_VAT);
         }
 
@@ -463,10 +462,10 @@ class VATTest {
     }
 
     @Nested
-    class TestCase_0_06_Without_VAT{
+    class TestCase_0_06_Without_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("0.05"), PriceType.WITHOUT_VAT);
         }
 
@@ -493,10 +492,10 @@ class VATTest {
     }
 
     @Nested
-    class TestCase_0_01_VAT{
+    class TestCase_0_01_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("0.01"), PriceType.WITH_VAT);
         }
 
@@ -523,10 +522,10 @@ class VATTest {
     }
 
     @Nested
-    class TestCase_0_01_Without_VAT{
+    class TestCase_0_01_Without_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("0.01"), PriceType.WITHOUT_VAT);
         }
 
@@ -553,10 +552,10 @@ class VATTest {
     }
 
     @Nested
-    class TestCase_0_00_Without_VAT{
+    class TestCase_0_00_Without_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("0.00"), PriceType.WITHOUT_VAT);
         }
 
@@ -583,10 +582,10 @@ class VATTest {
     }
 
     @Nested
-    class TestCase_0_00_VAT{
+    class TestCase_0_00_VAT {
 
         @BeforeEach
-        public void setUp(){
+        public void setUp() {
             vat = new VAT(new BigDecimal("0.00"), PriceType.WITH_VAT);
         }
 
@@ -613,22 +612,16 @@ class VATTest {
     }
 
     @Test
-    void incorrectInput_VAT(){
+    void incorrectInput_VAT() {
         assertThrows(IllegalArgumentException.class, () ->
                 new VAT(new BigDecimal("-1"), PriceType.WITH_VAT));
     }
 
     @Test
-    void incorrectInput_Without_VAT(){
+    void incorrectInput_Without_VAT() {
         assertThrows(IllegalArgumentException.class, () ->
                 new VAT(new BigDecimal("-1"), PriceType.WITHOUT_VAT));
     }
-
-
-
-
-
-
 
 
 }

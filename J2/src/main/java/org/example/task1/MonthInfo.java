@@ -16,7 +16,7 @@ public class MonthInfo {
         this.localDate = localDate;
     }
 
-    public String getCurrentMonthName(){
+    public String getCurrentMonthName() {
         var month = localDate.getMonth();
         return switch (month) {
             case JANUARY -> "январь";
@@ -34,26 +34,26 @@ public class MonthInfo {
         };
     }
 
-    public int getCurrentMonthNumber(){
+    public int getCurrentMonthNumber() {
         var month = localDate.getMonth();
         return month.getValue();
     }
 
-    public String getFirstDayMonthName(){
+    public String getFirstDayMonthName() {
         var firstDay = localDate.withDayOfMonth(1);
         var dayOfWeek = firstDay.getDayOfWeek();
         return dayOfWeek.getDisplayName(TextStyle.SHORT, new Locale("ru"));
     }
 
-    public LocalDate getLastDayMonth(){
+    public LocalDate getLastDayMonth() {
         return localDate.withDayOfMonth(localDate.lengthOfMonth());
     }
 
-    public int getLengthMonth(){
+    public int getLengthMonth() {
         return localDate.lengthOfMonth();
     }
 
-    public String getQuarterWithYear(){
+    public String getQuarterWithYear() {
         int month = localDate.getMonthValue();
         int year = localDate.getYear();
         int quarter = (month - 1) / 3 + 1;

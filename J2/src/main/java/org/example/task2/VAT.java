@@ -17,33 +17,33 @@ public class VAT {
             throw new IllegalArgumentException("Price cannot be negative");
         }
         BigDecimal vatRate = new BigDecimal("0.20");
-        switch (priceType){
+        switch (priceType) {
             case WITH_VAT -> {
-                fullPrice = price.setScale(2,RoundingMode.HALF_UP);
+                fullPrice = price.setScale(2, RoundingMode.HALF_UP);
                 basePrice = fullPrice.divide(BigDecimal.ONE.add(vatRate), 10, RoundingMode.HALF_UP)
                         .setScale(2, RoundingMode.HALF_EVEN);
             }
             case WITHOUT_VAT -> {
                 basePrice = price.setScale(2, RoundingMode.HALF_UP);
-                fullPrice = basePrice.multiply(BigDecimal.ONE.add(vatRate)).setScale(2,RoundingMode.HALF_UP);
+                fullPrice = basePrice.multiply(BigDecimal.ONE.add(vatRate)).setScale(2, RoundingMode.HALF_UP);
             }
         }
 
     }
 
-    public BigDecimal getFullPrice(){
+    public BigDecimal getFullPrice() {
         return fullPrice;
     }
 
-    public BigDecimal getBasePrice(){
+    public BigDecimal getBasePrice() {
         return basePrice;
     }
 
-    public BigDecimal getSumVAT(){
+    public BigDecimal getSumVAT() {
         return fullPrice.subtract(basePrice).setScale(2, RoundingMode.HALF_UP);
     }
 
-    public BigDecimal getSumVATForDeclaration(){
+    public BigDecimal getSumVATForDeclaration() {
         return fullPrice.subtract(basePrice).setScale(0, RoundingMode.HALF_UP);
     }
 }

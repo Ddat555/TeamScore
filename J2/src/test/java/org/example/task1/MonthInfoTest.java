@@ -14,10 +14,10 @@ class MonthInfoTest {
 
 
     @Nested
-    class November2023Test{
+    class November2023Test {
         @BeforeEach
-        void setLocalDate(){
-            monthInfo = new MonthInfo(LocalDate.of(2023,11,12));
+        void setLocalDate() {
+            monthInfo = new MonthInfo(LocalDate.of(2023, 11, 12));
         }
 
         @Test
@@ -53,10 +53,10 @@ class MonthInfoTest {
     }
 
     @Nested
-    class January1900Test{
+    class January1900Test {
         @BeforeEach
-        void setLocalDate(){
-            monthInfo = new MonthInfo(LocalDate.of(1900,1,1));
+        void setLocalDate() {
+            monthInfo = new MonthInfo(LocalDate.of(1900, 1, 1));
         }
 
         @Test
@@ -91,10 +91,10 @@ class MonthInfoTest {
     }
 
     @Nested
-    class February2020Test{
+    class February2020Test {
         @BeforeEach
-        void setLocalDate(){
-            monthInfo = new MonthInfo(LocalDate.of(2020,2,12));
+        void setLocalDate() {
+            monthInfo = new MonthInfo(LocalDate.of(2020, 2, 12));
         }
 
         @Test
@@ -129,9 +129,9 @@ class MonthInfoTest {
     }
 
     @Nested
-    class ConstructorWithoutParametersTest{
+    class ConstructorWithoutParametersTest {
         @BeforeEach
-        void setLocalDate(){
+        void setLocalDate() {
             monthInfo = new MonthInfo();
         }
 

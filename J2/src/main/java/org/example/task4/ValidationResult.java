@@ -32,7 +32,7 @@ public class ValidationResult {
         isValid = valid;
     }
 
-    public void addExceptionMessage(String message){
+    public void addExceptionMessage(String message) {
         exceptionMessageList.add(message);
     }
 }
