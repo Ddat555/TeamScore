@@ -1,8 +1,13 @@
 package org.example.task4.passwordvalidator;
 
+<<<<<<< Updated upstream
 import org.example.task4.ValidationResult;
 
 /** Проверка пароля на сложность.
+=======
+/**
+ * Проверка пароля на сложность.
+>>>>>>> Stashed changes
  * Пароль должен отвечать следующим требованиям:
  * - не менее 8 символов в длину
  * - содержит строчные, заглавные буквы и цифры

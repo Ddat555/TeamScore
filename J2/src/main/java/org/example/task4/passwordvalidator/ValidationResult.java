@@ -1,4 +1,4 @@
-package org.example.task4;
+package org.example.task4.passwordvalidator;
 
 import java.util.ArrayList;
 import java.util.List;
