@@ -1,6 +1,6 @@
 package org.example.task4.passwordvalidator;
 
-import org.example.task4.ValidationResult;
+import org.example.task4.passwordvalidator.ValidationResult;
 
 /**
  * Проверка пароля на сложность.
