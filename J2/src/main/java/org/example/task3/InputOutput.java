@@ -12,11 +12,7 @@ public class InputOutput {
     private final ISOCalculator calculator = new ISOCalculator();
 
 
-<<<<<<< Updated upstream
-    private boolean validationInputData(int year, int week){
-=======
     public boolean validationInputData(int year, int week) {
->>>>>>> Stashed changes
         if (year < 1 || year > 9999) {
             System.err.println("Год должен быть больше 0 и меньше 10000");
             return false;
@@ -45,7 +41,7 @@ public class InputOutput {
             System.out.print("Введите номер недели ISO (1-52 или 53): ");
             int weekNumber = scanner.nextInt();
 
-            if(!validationInputData(year,weekNumber)){
+            if (!validationInputData(year, weekNumber)) {
                 return;
             }
 
