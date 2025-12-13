@@ -1,12 +1,11 @@
-package org.example.task1;
+package ru.teamscore.task1;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 /**
  * Документ отгрузки со склада.
  * Бывает двух типов: перемещение (на другой склад) и продажа (покупателю).
- * 
+ *
  */
 class ShipmentDocument {
     private final String documentId; // GUID документа
@@ -68,7 +67,7 @@ class ShipmentDocument {
      * Для перемещений неприменимо!
      */
     boolean isWholesale(double minQuantity) {
-        if(documentType == DocumentType.SALE){
+        if (documentType == DocumentType.SALE) {
             SaleOrder saleOrder = (SaleOrder) order;
             return saleOrder.isWholesale(minQuantity);
         }
@@ -81,7 +80,7 @@ class ShipmentDocument {
      * Для продаж неприменимо!
      */
     boolean isInternalMovement() {
-        if(documentType == DocumentType.MOVING){
+        if (documentType == DocumentType.MOVING) {
             MovingOrder movingOrder = (MovingOrder) order;
             return movingOrder.isInternalMovement();
         }

@@ -1,9 +1,6 @@
-package org.example.task1;
+package ru.teamscore.task1;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
-public class SaleOrder extends Order{
+public class SaleOrder extends Order {
     private final String customer;
 
     public SaleOrder(String customer, Storage fromStorage) {
@@ -17,8 +14,8 @@ public class SaleOrder extends Order{
 
     public boolean isWholesale(double minQuantity) {
         double sumQuantity = 0;
-        for(OrderItem item : orderItemList){
-            if(item.getQuantity() >= minQuantity){
+        for (OrderItem item : orderItemList) {
+            if (item.getQuantity() >= minQuantity) {
                 return true;
             }
             sumQuantity += item.getQuantity();
