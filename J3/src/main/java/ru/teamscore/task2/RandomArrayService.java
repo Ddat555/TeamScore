@@ -9,8 +9,8 @@ public class RandomArrayService {
     private final ArrayGenerator<?> generator;
     private final ObjectMapper mapper = new ObjectMapper();
 
-    public RandomArrayService(GeneratorType type){
-        switch (type){
+    public RandomArrayService(GeneratorType type) {
+        switch (type) {
             case BOOL:
                 generator = new BooleanGenerator();
                 break;

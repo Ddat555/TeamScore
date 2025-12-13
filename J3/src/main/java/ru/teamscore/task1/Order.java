@@ -18,25 +18,25 @@ public abstract class Order {
         return orderItemList;
     }
 
-    public void addOrderItem(OrderItem orderItem){
+    public void addOrderItem(OrderItem orderItem) {
         orderItemList.add(orderItem);
     }
 
     public BigDecimal getTotalAmount() {
         BigDecimal sum = BigDecimal.ZERO;
-        for(OrderItem item: orderItemList){
+        for (OrderItem item : orderItemList) {
             sum = sum.add(item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
         }
         return sum;
     }
 
 
-    public BigDecimal promoSum(String[] promoArticles, double discount){
+    public BigDecimal promoSum(String[] promoArticles, double discount) {
         BigDecimal sum = BigDecimal.ZERO;
-        double mul = 1-discount/100.0;
-        for(String promoArt: promoArticles){
-            for(OrderItem item: orderItemList){
-                if(promoArt.equals(item.getArticle())){
+        double mul = 1 - discount / 100.0;
+        for (String promoArt : promoArticles) {
+            for (OrderItem item : orderItemList) {
+                if (promoArt.equals(item.getArticle())) {
                     BigDecimal itemAmount = item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
                     BigDecimal discounted = itemAmount.multiply(BigDecimal.valueOf(mul))
                             .setScale(2, RoundingMode.CEILING);
@@ -50,8 +50,8 @@ public abstract class Order {
 
 
     BigDecimal itemAmount(String id) {
-        for(OrderItem item: orderItemList){
-            if(item.getId().equals(id)){
+        for (OrderItem item : orderItemList) {
+            if (item.getId().equals(id)) {
                 return item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
             }
         }

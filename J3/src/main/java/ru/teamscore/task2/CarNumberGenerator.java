@@ -2,10 +2,11 @@ package ru.teamscore.task2;
 
 import java.util.Random;
 
-public class CarNumberGenerator implements ArrayGenerator<String>{
+public class CarNumberGenerator implements ArrayGenerator<String> {
 
     private final Random rnd = new Random();
-    private final String[] charCarNumber = new String[]{"A","B","C","Y","X","P","O","K","M"};
+    private final String[] charCarNumber = new String[]{"A", "B", "C", "Y", "X", "P", "O", "K", "M"};
+
     @Override
     public String[] generationArray(int length) {
         String[] arr = new String[length];

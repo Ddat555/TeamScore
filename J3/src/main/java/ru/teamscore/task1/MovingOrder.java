@@ -2,7 +2,7 @@ package ru.teamscore.task1;
 
 import java.math.BigDecimal;
 
-public class MovingOrder extends Order{
+public class MovingOrder extends Order {
     private final Storage toStorage;
 
     public MovingOrder(Storage fromStorage, Storage storage) {
