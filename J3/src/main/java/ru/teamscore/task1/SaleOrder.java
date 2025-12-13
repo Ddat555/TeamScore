@@ -1,7 +1,4 @@
-package org.example.task1;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+package ru.teamscore.task1;
 
 public class SaleOrder extends Order{
     private final String customer;

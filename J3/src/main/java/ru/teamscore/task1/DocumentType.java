@@ -1,4 +1,4 @@
-package org.example.task1;
+package ru.teamscore.task1;
 
 public enum DocumentType {
     SALE,

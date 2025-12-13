@@ -1,6 +1,5 @@
-package org.example.task1;
+package ru.teamscore.task1;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 /**
