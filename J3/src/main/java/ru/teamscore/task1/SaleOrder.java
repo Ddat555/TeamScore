@@ -1,10 +1,17 @@
 package ru.teamscore.task1;
 
+import java.util.List;
+
 public class SaleOrder extends Order {
     private final String customer;
 
     public SaleOrder(String customer, Storage fromStorage) {
         super(fromStorage);
+        this.customer = customer;
+    }
+
+    public SaleOrder(String customer, Storage fromStorage, List<OrderItem> orderItemList) {
+        super(fromStorage,orderItemList);
         this.customer = customer;
     }
 

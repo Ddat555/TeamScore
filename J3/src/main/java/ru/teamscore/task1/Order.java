@@ -14,6 +14,11 @@ public abstract class Order {
         this.fromStorage = fromStorage;
     }
 
+    public Order(Storage fromStorage, List<OrderItem> orderItemList) {
+        this.orderItemList = orderItemList;
+        this.fromStorage = fromStorage;
+    }
+
     public List<OrderItem> getOrderItemList() {
         return orderItemList;
     }

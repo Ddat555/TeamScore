@@ -7,11 +7,11 @@ import java.util.*;
  * Бывает двух типов: перемещение (на другой склад) и продажа (покупателю).
  *
  */
-class ShipmentDocument {
-    private final String documentId; // GUID документа
-    private final Date documentDate; // дата документа
-    private final DocumentType documentType; // тип отгрузки: sale - продажа, moving - перемещение
-    private final Order order;
+abstract class ShipmentDocument {
+    protected final String documentId; // GUID документа
+    protected final Date documentDate; // дата документа
+    protected final DocumentType documentType; // тип отгрузки: sale - продажа, moving - перемещение
+    protected final Order order;
 
     public ShipmentDocument(String documentId, Date documentDate, Order order) {
         this.documentId = documentId;
@@ -54,36 +54,5 @@ class ShipmentDocument {
     /**
      * Суммарная стоимость товаров, попадающих в список промо-акции.
      */
-    double promoSum(String[] promoArticles) {
-        return order.promoSum(promoArticles, 0.0).doubleValue();
-    }
-
-    double promoSum(String[] promoArticles, double discount) {
-        return order.promoSum(promoArticles, discount).doubleValue();
-    }
-
-    /**
-     * Является ли продажа оптовой для переданного минимального объема.
-     * Для перемещений неприменимо!
-     */
-    boolean isWholesale(double minQuantity) {
-        if (documentType == DocumentType.SALE) {
-            SaleOrder saleOrder = (SaleOrder) order;
-            return saleOrder.isWholesale(minQuantity);
-        }
-        return false;
-
-    }
-
-    /**
-     * Является ли перемещение внутренним (между складами одного владельца).
-     * Для продаж неприменимо!
-     */
-    boolean isInternalMovement() {
-        if (documentType == DocumentType.MOVING) {
-            MovingOrder movingOrder = (MovingOrder) order;
-            return movingOrder.isInternalMovement();
-        }
-        return false;
-    }
+    abstract double promoSum(String[] promoArticles);
 }

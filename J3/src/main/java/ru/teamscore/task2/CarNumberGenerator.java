@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class CarNumberGenerator implements ArrayGenerator<String> {
 
-    private final Random rnd = new Random();
+    private final Random rnd = new Random(100);
     private final String[] charCarNumber = new String[]{"A", "B", "C", "Y", "X", "P", "O", "K", "M"};
 
     @Override

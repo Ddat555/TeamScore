@@ -19,6 +19,15 @@ public class SearchResult {
         this.manufacturerName = manufacturerName;
     }
 
+    public SearchResult(Product product){
+        this.article = product.getArticle();
+        this.nameProduct = product.getName();
+        this.finalPrice = product.getFinalPrice();
+        this.supplierName = product.getSupplier().getName();
+        this.address = product.getSupplier().getAddress();
+        this.manufacturerName = product.getManufacturer().getName();
+    }
+
     public String getArticle() {
         return article;
     }
@@ -41,5 +50,17 @@ public class SearchResult {
 
     public String getManufacturerName() {
         return manufacturerName;
+    }
+
+    @Override
+    public String toString() {
+        return "SearchResult{" +
+                "article='" + article + '\'' +
+                ", nameProduct='" + nameProduct + '\'' +
+                ", finalPrice=" + finalPrice +
+                ", supplierName='" + supplierName + '\'' +
+                ", address='" + address + '\'' +
+                ", manufacturerName='" + manufacturerName + '\'' +
+                '}';
     }
 }

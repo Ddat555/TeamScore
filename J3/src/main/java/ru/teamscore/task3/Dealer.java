@@ -26,4 +26,12 @@ public class Dealer extends Supplier {
     public void setPercent(double percent) {
         this.percent = percent;
     }
+
+    @Override
+    public String toString() {
+        return "Dealer{" +
+                "manufacturer=" + manufacturer +
+                ", percent=" + percent +
+                '}';
+    }
 }
