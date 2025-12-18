@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class DiceGenerator implements ArrayGenerator<Integer> {
 
-    private final Random rnd = new Random();
+    private final Random rnd = new Random(100);
 
     @Override
     public Integer[] generationArray(int length) {

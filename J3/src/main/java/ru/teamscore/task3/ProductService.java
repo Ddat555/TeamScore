@@ -18,12 +18,7 @@ public class ProductService {
             if (product.getArticle().equals(query) ||
                     product.getName().toLowerCase().contains(query.toLowerCase())) {
                 results.add(new SearchResult(
-                        product.getArticle(),
-                        product.getName(),
-                        product.getFinalPrice(),
-                        product.getSupplier().getName(),
-                        product.getSupplier().getAddress(),
-                        product.getManufacturer().getName()
+                        product
                 ));
             }
         }
@@ -31,4 +26,10 @@ public class ProductService {
     }
 
 
+    @Override
+    public String toString() {
+        return "ProductService{" +
+                "productList=" + productList +
+                '}';
+    }
 }

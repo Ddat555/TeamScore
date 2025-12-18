@@ -1,6 +1,6 @@
 package ru.teamscore.task3;
 
-public class Supplier {
+public abstract class Supplier {
     private final String inn;
     private String name;
     private String address;
