@@ -4,7 +4,15 @@ import java.util.Random;
 
 public class BooleanGenerator implements ArrayGenerator<Boolean> {
 
-    private final Random rnd = new Random(100);
+    private final Random rnd;
+
+    public BooleanGenerator() {
+        this.rnd = new Random();
+    }
+
+    public BooleanGenerator(Random rnd) {
+        this.rnd = rnd;
+    }
 
     @Override
     public Boolean[] generationArray(int length) {

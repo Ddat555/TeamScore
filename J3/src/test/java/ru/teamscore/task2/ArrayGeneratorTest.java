@@ -3,6 +3,9 @@ package ru.teamscore.task2;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Random;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ArrayGeneratorTest {
@@ -10,19 +13,19 @@ class ArrayGeneratorTest {
 
     @Test
     void booleanGeneratorTest() throws JsonProcessingException {
-        RandomArrayService randomArrayService = new RandomArrayService(GeneratorType.BOOL);
-        assertEquals("[true,true,false,true,true]", randomArrayService.generateAsJson(5));
+        BooleanGenerator booleanGenerator = new BooleanGenerator(new Random(100));
+        assertEquals("[true, true, false, true, true]", Arrays.toString(booleanGenerator.generationArray(5)));
     }
 
     @Test
     void diceGeneratorTest() throws JsonProcessingException {
-        RandomArrayService randomArrayService = new RandomArrayService(GeneratorType.DICE);
-        assertEquals("[2,5,5,1,2]", randomArrayService.generateAsJson(5));
+        DiceGenerator diceGenerator = new DiceGenerator(new Random(100));
+        assertEquals("[2, 5, 5, 1, 2]", Arrays.toString(diceGenerator.generationArray(5)));
     }
 
     @Test
     void carNumberGeneratorTest() throws JsonProcessingException {
-        RandomArrayService randomArrayService = new RandomArrayService(GeneratorType.CAR_NUMBER);
-        assertEquals("[\"K048KY\",\"C833KP\",\"P729CO\",\"C938CX\",\"A182KX\"]", randomArrayService.generateAsJson(5));
+        CarNumberGenerator carNumberGenerator = new CarNumberGenerator(new Random(100));
+        assertEquals("[K048KY, C833KP, P729CO, C938CX, A182KX]", Arrays.toString(carNumberGenerator.generationArray(5)));
     }
 }
