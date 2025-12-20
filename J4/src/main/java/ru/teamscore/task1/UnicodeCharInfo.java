@@ -8,20 +8,20 @@ public class UnicodeCharInfo {
         this.aChar = aChar;
     }
 
-    public int getUnicodeInt(){
+    public int getUnicodeInt() {
         return aChar;
     }
 
-    public String getUnicodeHex(){
+    public String getUnicodeHex() {
         return String.format("U+%04X", (int) aChar);
     }
 
-    public char getNextChar(){
-        return (char) (aChar+1);
+    public char getNextChar() {
+        return (char) (aChar + 1);
     }
 
-    public char getPrevChar(){
-        return (char) (aChar-1);
+    public char getPrevChar() {
+        return (char) (aChar - 1);
     }
 
     public CharType getCharType() {
@@ -44,8 +44,8 @@ public class UnicodeCharInfo {
         return CharType.OTHER;
     }
 
-    public int getAlphabetNumber(){
-        if(Character.toUpperCase(aChar) >= 65 && Character.toUpperCase(aChar) <= 90){
+    public int getAlphabetNumber() {
+        if (Character.toUpperCase(aChar) >= 65 && Character.toUpperCase(aChar) <= 90) {
             return Character.toUpperCase(aChar) - 64;
         }
         return -1;
