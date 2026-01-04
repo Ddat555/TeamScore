@@ -15,7 +15,7 @@ public class Main {
         String password = "server";
 
         try (Connection connection = DriverManager.getConnection(url, user, password);
-             Scanner scanner = new Scanner(System.in)){
+             Scanner scanner = new Scanner(System.in)) {
 
             PriceUpdateDAO dao = new PriceUpdateDAO(connection);
 
@@ -31,10 +31,9 @@ public class Main {
             System.out.print("Введите новую стоимость: ");
             BigDecimal price = BigDecimal.valueOf(scanner.nextDouble());
 
-            dao.updatePrice(flightNo,fareCond,bookDate,price);
+            dao.updatePrice(flightNo, fareCond, bookDate, price);
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Ошибка: " + e.getMessage());
             e.printStackTrace();
         }

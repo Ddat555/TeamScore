@@ -23,16 +23,16 @@ public class PriceUpdateDAO {
 
         try {
             String updatePriceSQL = """
-                UPDATE segments s
-                SET price = ?
-                FROM flights f, tickets t, bookings b
-                WHERE s.flight_id = f.flight_id
-                  AND s.ticket_no = t.ticket_no
-                  AND t.book_ref = b.book_ref
-                  AND s.fare_conditions = ?
-                  AND f.route_no = ?
-                  AND DATE(b.book_date) = ?
-                """;
+                    UPDATE segments s
+                    SET price = ?
+                    FROM flights f, tickets t, bookings b
+                    WHERE s.flight_id = f.flight_id
+                      AND s.ticket_no = t.ticket_no
+                      AND t.book_ref = b.book_ref
+                      AND s.fare_conditions = ?
+                      AND f.route_no = ?
+                      AND DATE(b.book_date) = ?
+                    """;
 
             try (PreparedStatement priceStmt = connection.prepareStatement(updatePriceSQL)) {
                 priceStmt.setBigDecimal(1, newPrice);
@@ -49,15 +49,15 @@ public class PriceUpdateDAO {
             }
 
             String updateTotalSQL = """
-                UPDATE bookings
-                SET total_amount = (
-                    SELECT COALESCE(SUM(s.price), 0)
-                    FROM segments s
-                    JOIN tickets t ON s.ticket_no = t.ticket_no
-                    WHERE t.book_ref = bookings.book_ref
-                )
-                WHERE DATE(book_date) = ?
-                """;
+                    UPDATE bookings
+                    SET total_amount = (
+                        SELECT COALESCE(SUM(s.price), 0)
+                        FROM segments s
+                        JOIN tickets t ON s.ticket_no = t.ticket_no
+                        WHERE t.book_ref = bookings.book_ref
+                    )
+                    WHERE DATE(book_date) = ?
+                    """;
 
             try (PreparedStatement totalStmt = connection.prepareStatement(updateTotalSQL)) {
                 totalStmt.setDate(1, Date.valueOf(bookDate));

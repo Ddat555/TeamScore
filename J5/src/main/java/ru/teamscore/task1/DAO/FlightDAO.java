@@ -1,6 +1,5 @@
 package ru.teamscore.task1.DAO;
 
-import ru.teamscore.task1.DTO.FlightInfoDTO;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -19,25 +18,25 @@ public class FlightDAO {
         List<String> results = new ArrayList<>();
 
         String sql = """
-            SELECT 
-                f.flight_id,
-                f.status,
-                f.scheduled_departure,
-                f.scheduled_arrival,
-                r.departure_airport,
-                r.arrival_airport,
-                dep.city as dep_city,
-                arr.city as arr_city,
-                ap.model
-            FROM flights f
-            JOIN routes r ON f.route_no = r.route_no
-            JOIN airports dep ON r.departure_airport = dep.airport_code
-            JOIN airports arr ON r.arrival_airport = arr.airport_code
-            JOIN airplanes ap ON r.airplane_code = ap.airplane_code
-            WHERE (r.departure_airport = ? OR r.arrival_airport = ?)
-              AND (DATE(f.scheduled_departure) = ? OR DATE(f.scheduled_arrival) = ?)
-            ORDER BY f.scheduled_departure
-            """;
+                SELECT 
+                    f.flight_id,
+                    f.status,
+                    f.scheduled_departure,
+                    f.scheduled_arrival,
+                    r.departure_airport,
+                    r.arrival_airport,
+                    dep.city as dep_city,
+                    arr.city as arr_city,
+                    ap.model
+                FROM flights f
+                JOIN routes r ON f.route_no = r.route_no
+                JOIN airports dep ON r.departure_airport = dep.airport_code
+                JOIN airports arr ON r.arrival_airport = arr.airport_code
+                JOIN airplanes ap ON r.airplane_code = ap.airplane_code
+                WHERE (r.departure_airport = ? OR r.arrival_airport = ?)
+                  AND (DATE(f.scheduled_departure) = ? OR DATE(f.scheduled_arrival) = ?)
+                ORDER BY f.scheduled_departure
+                """;
 
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, airportCode);
