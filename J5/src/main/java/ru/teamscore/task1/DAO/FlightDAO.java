@@ -16,79 +16,64 @@ public class FlightDAO {
     }
 
     public String[] getFlightArray(String airportCode, LocalDate date) throws SQLException {
+        List<String> results = new ArrayList<>();
+
         String sql = """
-                SELECT\s
-                                f.flight_id,
-                                f.status,
-                                CASE\s
-                                    WHEN r.departure_airport = ? THEN 'Вылет'\s
-                                    ELSE 'Прилет'\s
-                                END as type,
-                                CASE\s
-                                    WHEN r.departure_airport = ? THEN f.scheduled_departure
-                                    ELSE f.scheduled_arrival
-                                END as scheduled_time,
-                                CASE\s
-                                    WHEN r.departure_airport = ? THEN arr.airport_code
-                                    ELSE dep.airport_code
-                                END as airport_code,
-                                CASE\s
-                                    WHEN r.departure_airport = ? THEN arr.city
-                                    ELSE dep.city
-                                END as city,
-                                a.model as aircraft_model
-                            FROM bookings.flights f
-                            JOIN bookings.routes r ON f.route_no = r.route_no
-                            JOIN bookings.airports dep ON r.departure_airport = dep.airport_code
-                            JOIN bookings.airports arr ON r.arrival_airport = arr.airport_code
-                            JOIN bookings.airplanes a ON r.airplane_code = a.airplane_code
-                            WHERE (r.departure_airport = ? OR r.arrival_airport = ?)
-                              AND (DATE(f.scheduled_departure) = ?\s
-                                   OR DATE(f.scheduled_arrival) = ?)
-                            ORDER BY scheduled_time
-                """;
+            SELECT 
+                f.flight_id,
+                f.status,
+                f.scheduled_departure,
+                f.scheduled_arrival,
+                r.departure_airport,
+                r.arrival_airport,
+                dep.city as dep_city,
+                arr.city as arr_city,
+                ap.model
+            FROM flights f
+            JOIN routes r ON f.route_no = r.route_no
+            JOIN airports dep ON r.departure_airport = dep.airport_code
+            JOIN airports arr ON r.arrival_airport = arr.airport_code
+            JOIN airplanes ap ON r.airplane_code = ap.airplane_code
+            WHERE (r.departure_airport = ? OR r.arrival_airport = ?)
+              AND (DATE(f.scheduled_departure) = ? OR DATE(f.scheduled_arrival) = ?)
+            ORDER BY f.scheduled_departure
+            """;
 
-        List<FlightInfoDTO> flights = new ArrayList<>();
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, airportCode);
+            stmt.setString(2, airportCode);
+            stmt.setDate(3, Date.valueOf(date));
+            stmt.setDate(4, Date.valueOf(date));
 
-        try (PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setString(1, airportCode);
-            statement.setString(2, airportCode);
-            statement.setString(3, airportCode);
-            statement.setString(4, airportCode);
-            statement.setString(5, airportCode);
-            statement.setString(6, airportCode);
-            statement.setDate(7, Date.valueOf(date));
-            statement.setDate(8, Date.valueOf(date));
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String departureAirport = rs.getString("departure_airport");
+                String type = departureAirport.equals(airportCode) ? "Вылет" : "Прилет";
 
-            ResultSet rs = statement.executeQuery();
-            while (rs.next()){
-                FlightInfoDTO flightInfoDTO = new FlightInfoDTO(
-                        rs.getInt("flight_id"),
+                Timestamp scheduledTime = departureAirport.equals(airportCode)
+                        ? rs.getTimestamp("scheduled_departure")
+                        : rs.getTimestamp("scheduled_arrival");
+
+                String airportCodeResult = departureAirport.equals(airportCode)
+                        ? rs.getString("arrival_airport")
+                        : rs.getString("departure_airport");
+
+                String city = departureAirport.equals(airportCode)
+                        ? rs.getString("arr_city")
+                        : rs.getString("dep_city");
+
+                String flightInfo = String.format("%-20s | %-6s | %-8s | %-15s | %-20s | %-15s",
+                        scheduledTime.toLocalDateTime(),
+                        type,
                         rs.getString("status"),
-                        rs.getString("type"),
-                        rs.getTimestamp("scheduled_time").toLocalDateTime(),
-                        rs.getString("airport_code"),
-                        rs.getString("city"),
-                        rs.getString("aircraft_model")
-                );
-                flights.add(flightInfoDTO);
+                        airportCodeResult,
+                        city,
+                        rs.getString("model"));
+
+                results.add(flightInfo);
             }
         }
-        return convertFromListToArrayString(flights);
-    }
 
-    private String[] convertFromListToArrayString(List<FlightInfoDTO> flightInfoDTOList){
-        String[] result = new String[flightInfoDTOList.size()];
-        for (int i = 0; i < flightInfoDTOList.size(); i++) {
-            FlightInfoDTO flight = flightInfoDTOList.get(i);
-            result[i] = String.format("%-20s | %-6s | %-8s | %-15s | %-20s | %-15s",
-                    flight.getScheduledTime(),
-                    flight.getType(),
-                    flight.getStatus(),
-                    flight.getAirportCode(),
-                    flight.getCity(),
-                    flight.getAircraftModel());
-        }
-        return result;
+        return results.toArray(new String[0]);
     }
 }
