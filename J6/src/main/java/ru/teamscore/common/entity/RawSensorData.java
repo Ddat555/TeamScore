@@ -31,7 +31,7 @@ public class RawSensorData {
     public RawSensorData() {
     }
 
-    public RawSensorData(UUID sensorId, Sensor sensor, LocalDateTime measuredAt, Object value)
+    public RawSensorData(Sensor sensor, LocalDateTime measuredAt, Object value)
             throws JsonProcessingException {
 
         ObjectMapper mapper = new ObjectMapper();
@@ -39,7 +39,7 @@ public class RawSensorData {
 
         this.sensor = sensor;
         this.measuredAt = measuredAt;
-        this.savedAt = null;
+        this.savedAt = LocalDateTime.now();
         this.value = valueJson;
     }
 

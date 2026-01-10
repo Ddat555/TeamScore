@@ -3,7 +3,6 @@ package ru.teamscore.common.entity;
 import ru.teamscore.common.SensorType;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 @Table(name = "sensor", schema = "develop")
