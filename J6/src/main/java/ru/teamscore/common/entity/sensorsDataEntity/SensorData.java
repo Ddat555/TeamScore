@@ -22,4 +22,28 @@ public abstract class SensorData {
         this.sensor = sensor;
         this.measureAt = measureAt;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Sensor getSensor() {
+        return sensor;
+    }
+
+    public void setSensor(Sensor sensor) {
+        this.sensor = sensor;
+    }
+
+    public LocalDateTime getMeasureAt() {
+        return measureAt;
+    }
+
+    public void setMeasureAt(LocalDateTime measureAt) {
+        this.measureAt = measureAt;
+    }
 }

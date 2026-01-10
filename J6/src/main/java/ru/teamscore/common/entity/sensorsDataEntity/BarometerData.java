@@ -15,8 +15,16 @@ public class BarometerData extends SensorData{
         super(sensor, measureAt);
     }
 
-    public BarometerData(Sensor sensor, LocalDateTime measureAt, float air_pressure) {
+    public BarometerData(Sensor sensor, LocalDateTime measureAt, double air_pressure) {
         super(sensor, measureAt);
+        this.air_pressure = air_pressure;
+    }
+
+    public double getAir_pressure() {
+        return air_pressure;
+    }
+
+    public void setAir_pressure(double air_pressure) {
         this.air_pressure = air_pressure;
     }
 }
