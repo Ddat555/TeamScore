@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "location_data", schema = "develop")
-public class LocationData extends SensorData{
+public class LocationData extends SensorData {
 
     private double longitude;
     private double latitude;

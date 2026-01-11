@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "accelerometer_data", schema = "develop")
-public class AccelerometerData extends SensorData{
+public class AccelerometerData extends SensorData {
     private double x;
     private double y;
     private double z;

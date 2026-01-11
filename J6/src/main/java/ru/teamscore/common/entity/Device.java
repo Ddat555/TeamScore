@@ -26,7 +26,7 @@ public class Device {
         this.name = name;
     }
 
-    public void addSensor(Sensor sensor){
+    public void addSensor(Sensor sensor) {
         sensors.add(sensor);
         sensor.setDevice(this);
     }

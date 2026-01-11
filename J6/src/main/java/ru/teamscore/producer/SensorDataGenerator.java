@@ -31,14 +31,12 @@ public class SensorDataGenerator {
 
         Object value = generateSensorValue(sensor.getType());
 
-        LocalDateTime measuredAt = LocalDateTime.now()
-                .minusMinutes(rnd.nextInt(10))
-                .minusSeconds(rnd.nextInt(60));
+        LocalDateTime measuredAt = LocalDateTime.now().minusMinutes(rnd.nextInt(10)).minusSeconds(rnd.nextInt(60));
 
         return new RawSensorData(sensor, measuredAt, value);
     }
 
-    private Object generateSensorValue(SensorType type) {
+    public Object generateSensorValue(SensorType type) {
         Map<String, Object> valueMap = new HashMap<>();
 
         switch (type) {

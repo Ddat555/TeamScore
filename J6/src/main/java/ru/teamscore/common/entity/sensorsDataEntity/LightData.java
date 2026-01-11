@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "light_data", schema = "develop")
-public class LightData extends SensorData{
+public class LightData extends SensorData {
 
     private int light;
 

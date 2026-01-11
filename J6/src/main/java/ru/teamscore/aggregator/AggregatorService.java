@@ -1,10 +1,11 @@
 package ru.teamscore.aggregator;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import ru.teamscore.common.SensorType;
-import ru.teamscore.common.utils.HibernateUtil;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,18 +13,45 @@ import java.util.List;
 
 public class AggregatorService {
 
+    private final SessionFactory sessionFactory;
+
+    public AggregatorService(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    private double toDouble(Object value) {
+        if (value == null) {
+            return 0.0;
+        }
+        if (value instanceof BigDecimal) {
+            return ((BigDecimal) value).doubleValue();
+        }
+        if (value instanceof Double) {
+            return (Double) value;
+        }
+        if (value instanceof Float) {
+            return ((Float) value).doubleValue();
+        }
+        if (value instanceof Integer) {
+            return ((Integer) value).doubleValue();
+        }
+        if (value instanceof Long) {
+            return ((Long) value).doubleValue();
+        }
+        try {
+            return Double.parseDouble(value.toString());
+        } catch (NumberFormatException e) {
+            return 0.0;
+        }
+    }
+
     public List<AggregationResult> getAggregateList(SensorType sensorType,
                                                     LocalDateTime startTime,
                                                     LocalDateTime endTime,
                                                     Interval interval,
                                                     String deviceName) {
 
-        System.out.println("Агрегация");
-        System.out.printf("Тип: %s, Период %s - %s, Интервал: %s%s\n",
-                sensorType, startTime, endTime, interval,
-                deviceName != null ? ", устройство: " + deviceName : "");
-
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
 
             List<AggregationResult> results = new ArrayList<>();
             String intervalStr = interval.toString().toLowerCase();
@@ -48,7 +76,7 @@ public class AggregatorService {
 
                     List<Object[]> lightRows = lightQuery.getResultList();
                     for (Object[] row : lightRows) {
-                        double avgValue = ((java.math.BigDecimal) row[2]).doubleValue();
+                        double avgValue = toDouble(row[2]);
                         results.add(new AggregationResult(
                                 (String) row[0],
                                 ((Timestamp) row[1]).toLocalDateTime(),
@@ -76,7 +104,7 @@ public class AggregatorService {
 
                     List<Object[]> barometerRows = barometerQuery.getResultList();
                     for (Object[] row : barometerRows) {
-                        double avgValue = ((java.math.BigDecimal) row[2]).doubleValue();
+                        double avgValue = toDouble(row[2]);
                         results.add(new AggregationResult(
                                 (String) row[0],
                                 ((Timestamp) row[1]).toLocalDateTime(),
@@ -104,8 +132,8 @@ public class AggregatorService {
 
                     List<Object[]> locationRows = locationQuery.getResultList();
                     for (Object[] row : locationRows) {
-                        double avgLongitude = ((java.math.BigDecimal) row[2]).doubleValue();
-                        double avgLatitude = ((java.math.BigDecimal) row[3]).doubleValue();
+                        double avgLongitude = toDouble(row[2]);
+                        double avgLatitude = toDouble(row[3]);
                         String value = String.format("%.4f;%.4f", avgLongitude, avgLatitude);
                         results.add(new AggregationResult(
                                 (String) row[0],
@@ -134,9 +162,9 @@ public class AggregatorService {
 
                     List<Object[]> accelerometerRows = accelerometerQuery.getResultList();
                     for (Object[] row : accelerometerRows) {
-                        double avgX = ((java.math.BigDecimal) row[2]).doubleValue();
-                        double avgY = ((java.math.BigDecimal) row[3]).doubleValue();
-                        double avgZ = ((java.math.BigDecimal) row[4]).doubleValue();
+                        double avgX = toDouble(row[2]);
+                        double avgY = toDouble(row[3]);
+                        double avgZ = toDouble(row[4]);
                         String value = String.format("%.2f;%.2f;%.2f", avgX, avgY, avgZ);
                         results.add(new AggregationResult(
                                 (String) row[0],

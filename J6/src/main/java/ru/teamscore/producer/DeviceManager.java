@@ -1,6 +1,7 @@
 package ru.teamscore.producer;
 
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import ru.teamscore.common.SensorType;
 import ru.teamscore.common.entity.Device;
@@ -14,20 +15,20 @@ import java.util.UUID;
 public class DeviceManager {
     private List<Device> devices;
     private final Random rnd = new Random();
+    private final SessionFactory sessionFactory;
 
-    public DeviceManager() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            // Загружаем все устройства с датчиками
+    public DeviceManager(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+        try (Session session = sessionFactory.openSession()) {
             devices = session.createQuery(
                     "SELECT DISTINCT d FROM Device d LEFT JOIN FETCH d.sensors",
                     Device.class
             ).getResultList();
-
-            System.out.println("Загружено " + devices.size() + " устройств из БД");
+            System.out.println("Найдено " + devices.size() + " устройств");
         }
     }
 
-    public Device getRandomDevice(){
+    public Device getRandomDevice() {
         if (devices.isEmpty()) {
             return null;
         }
@@ -49,7 +50,7 @@ public class DeviceManager {
             }
         }
 
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             Device device = new Device(name);
             session.save(device);
@@ -63,7 +64,7 @@ public class DeviceManager {
     public Sensor addSensor(Device device, SensorType type) {
         String sensorId = UUID.randomUUID().toString();
 
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
 
             Sensor sensor = new Sensor(sensorId, type);
@@ -78,7 +79,7 @@ public class DeviceManager {
         }
     }
 
-    public int getDeviceSize(){
+    public int getDeviceSize() {
         return devices.size();
     }
 }

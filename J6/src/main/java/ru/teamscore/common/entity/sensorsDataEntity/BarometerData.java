@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "barometer_data", schema = "develop")
-public class BarometerData extends SensorData{
+public class BarometerData extends SensorData {
     private double air_pressure;
 
     public BarometerData(Sensor sensor, LocalDateTime measureAt) {

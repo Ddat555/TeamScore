@@ -12,17 +12,17 @@ public class HibernateUtil {
             sessionFactory = new Configuration()
                     .configure()
                     .buildSessionFactory();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.err.println("Ошибка инициализации: " + e);
             throw new ExceptionInInitializerError(e);
         }
     }
 
-    public static SessionFactory getSessionFactory(){
+    public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
-    public static void shutdown(){
+    public static void shutdown() {
         getSessionFactory().close();
     }
 }

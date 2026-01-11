@@ -1,6 +1,9 @@
 package ru.teamscore.aggregator;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import ru.teamscore.common.SensorType;
+import ru.teamscore.common.utils.HibernateUtil;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,13 +16,13 @@ public class AggregatorApp {
             System.err.println("Должно быть 4 параметра аргументов!");
             return;
         }
-        try {
+        try{
             SensorType sensorType = SensorType.valueOf(args[0]);
             LocalDateTime startTime = LocalDateTime.parse(args[1]);
             LocalDateTime endTime = LocalDateTime.parse(args[2]);
             Interval interval = Interval.valueOf(args[3]);
             String deviceName = args.length > 4 ? args[4] : null;
-            AggregatorService aggregatorService = new AggregatorService();
+            AggregatorService aggregatorService = new AggregatorService(HibernateUtil.getSessionFactory());
             var result = aggregatorService.getAggregateList(sensorType, startTime, endTime, interval, deviceName);
             if(result != null)
                 printResults(result, sensorType);

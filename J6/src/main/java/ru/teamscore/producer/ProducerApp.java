@@ -5,15 +5,13 @@ import org.hibernate.Transaction;
 import ru.teamscore.common.utils.HibernateUtil;
 import ru.teamscore.common.entity.RawSensorData;
 
-import java.time.LocalDateTime;
-
 public class ProducerApp {
 
     public static void main(String[] args) {
         System.out.println("Запуск Producer");
 
         try {
-            DeviceManager deviceManager = new DeviceManager();
+            DeviceManager deviceManager = new DeviceManager(HibernateUtil.getSessionFactory());
             if (deviceManager.getDeviceSize() == 0) {
                 System.out.println("В БД нет устройств. Запустите AddStartTestData для создания тестовых данных.");
                 return;

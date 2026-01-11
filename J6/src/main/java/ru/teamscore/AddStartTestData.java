@@ -2,12 +2,13 @@ package ru.teamscore;
 
 import ru.teamscore.common.SensorType;
 import ru.teamscore.common.entity.Device;
+import ru.teamscore.common.utils.HibernateUtil;
 import ru.teamscore.producer.DeviceManager;
 
 public class AddStartTestData {
 
     public static void main(String[] args) {
-        DeviceManager deviceManager = new DeviceManager();
+        DeviceManager deviceManager = new DeviceManager(HibernateUtil.getSessionFactory());
 
         System.out.println("Инициализация тестовыми устройствами и датчиками...");
 
