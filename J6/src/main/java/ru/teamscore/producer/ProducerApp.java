@@ -51,8 +51,8 @@ public class ProducerApp {
                     break;
                 }
 
-                if (messageCount >= 20) {
-                    System.out.println("Сгенерировано 20 сообщений. Остановка.");
+                if (messageCount >= 100) {
+                    System.out.println("Сгенерировано 100 сообщений. Остановка.");
                     break;
                 }
             }
