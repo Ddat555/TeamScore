@@ -1,10 +1,13 @@
 package org.teamscore.individualTask.models.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -12,5 +15,18 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TypePayment {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
+    @OneToMany(mappedBy = "typePayment")
+    @JsonIgnore
+    private List<Cost> costs = new ArrayList<>();
+
+    public TypePayment(String name) {
+        this.name = name;
+    }
+
+    public boolean isUseInCosts(){
+        return !costs.isEmpty();
+    }
 }

@@ -1,30 +1,43 @@
 package org.teamscore.individualTask.models.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 public class Category {
+
     @Id
-    @UuidGenerator
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String name;
     private String color;
     private String description;
-
     @ManyToMany(mappedBy = "categories")
-    private Set<Expense> expenses = new HashSet<>();
+    @JsonIgnore
+    private List<Cost> costs = new ArrayList<>();
 
+    public Category(String name, String color) {
+        this.name = name;
+        this.color = color;
+    }
+
+    public Category(String name, String color, String description) {
+        this.name = name;
+        this.color = color;
+        this.description = description;
+    }
+
+    public boolean isUseInCosts(){
+        return !costs.isEmpty();
+    }
 }

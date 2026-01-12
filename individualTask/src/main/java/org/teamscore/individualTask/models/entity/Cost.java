@@ -1,34 +1,39 @@
 package org.teamscore.individualTask.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
-public class Expense {
+public class Cost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime dateTimeExpense;
+    @CreationTimestamp
+    private LocalDateTime dateTimePay;
+    private String sellerName;
     private BigDecimal sum;
-    @OneToOne
-    @JoinColumn(name = "payment_type")
+    @ManyToOne
     private TypePayment typePayment;
     @ManyToMany
     @JoinTable(
-            name = "expense_categories",
-            joinColumns = @JoinColumn(name = "expense_id"),
+            name = "category_cost",
+            joinColumns = @JoinColumn(name = "cost_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private Set<Category> category = new HashSet<>();
+    private List<Category> categories = new ArrayList<>();
+
 }
