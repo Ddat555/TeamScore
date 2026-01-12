@@ -49,10 +49,12 @@ public class ProducerApp {
                     break;
                 }
 
+                // для бесконечного генерирования надо удалить. не забыть
                 if (messageCount >= 100) {
                     System.out.println("Сгенерировано 100 сообщений. Остановка.");
                     break;
                 }
+                //-------------------------------------
             }
 
         } catch (Exception e) {

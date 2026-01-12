@@ -32,7 +32,7 @@ public class ConsumerApp {
 
                     System.out.println("Найдено " + newMessages.size() + " новых сообщений");
 
-                    int processedCount = processMessages(session, newMessages);
+                    processMessages(session, newMessages);
                     updateLastProcessedTime(newMessages);
 
 
