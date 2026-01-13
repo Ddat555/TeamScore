@@ -13,4 +13,7 @@ import java.util.Optional;
 public interface CategoryRepository extends CrudRepository<Category,Long> {
     List<Category> findAll(Pageable pageable);
     Optional<Category> findByName(String name);
+
+//    @Query("SELECT c FROM Category c where ")
+//    List<Category> findAllCategoryWithCostByPeriod(@Param("from") LocalDate from, @Param("to") LocalDate to);
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.teamscore.individualTask.models.entity.Category;
 import org.teamscore.individualTask.repositories.CategoryRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -42,4 +43,8 @@ public class CategoryService {
     public Category getCategoryByName(String name) {
         return categoryRepository.findByName(name).orElseThrow();
     }
+
+//    public List<Category> getAllCategoryWithCostByPeriod(LocalDate from, LocalDate to){
+//        return categoryRepository
+//    }
 }

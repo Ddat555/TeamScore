@@ -39,4 +39,6 @@ public class TypePaymentService {
     public TypePayment getTypePaymentByName(String name){
         return typePaymentRepository.findByName(name).orElseThrow();
     }
+
+
 }

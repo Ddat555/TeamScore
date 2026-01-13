@@ -3,7 +3,9 @@ package org.teamscore.individualTask.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.teamscore.individualTask.models.entity.Category;
 import org.teamscore.individualTask.models.entity.Cost;
+import org.teamscore.individualTask.models.entity.TypePayment;
 import org.teamscore.individualTask.repositories.CostRepository;
 
 import java.time.LocalDate;
@@ -47,4 +49,12 @@ public class CostService {
     public List<Cost> getAllCostByPeriod(LocalDateTime dateFrom, LocalDateTime dateTo){
         return costRepository.findAllByPeriod(dateFrom,dateTo);
     }
+
+//    public List<Cost> getAllCostByTypePaymentAndPeriod(TypePayment typePayment, LocalDate dateFrom, LocalDate dateTo){
+//        return costRepository.findAllByTypePaymentAndPeriod(typePayment, dateFrom, dateTo);
+//    }
+
+//    public List<Cost> getAllCostByCategoryAndPeriod(Category category){
+//
+//    }
 }
