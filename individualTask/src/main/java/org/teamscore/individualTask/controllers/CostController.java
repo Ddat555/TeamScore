@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.teamscore.individualTask.models.DTO.entity.CostDTO;
+import org.teamscore.individualTask.models.DTO.entity.createDTO.CreateCostDTO;
 import org.teamscore.individualTask.models.entity.Cost;
 import org.teamscore.individualTask.services.CostService;
 
@@ -31,21 +33,27 @@ public class CostController {
             @Parameter(description = "Cost ID")
             @RequestParam(name = "id") Long id) {
         var result = costService.getCostById(id);
-        return ResponseEntity.status(HttpStatus.OK).body(result);
+        if(result != null)
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Расход с таким ид не найден");
     }
 
     @Operation(summary = "Create cost")
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Cost cost) {
-        cost = costService.createCost(cost);
+    public ResponseEntity<?> create(@RequestBody CreateCostDTO costDTO) {
+        var cost = costService.createCost(costDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(cost);
     }
 
     @Operation(summary = "Update cost")
     @PutMapping
-    public ResponseEntity<?> update(@RequestBody Cost cost) {
-        cost = costService.updateCost(cost);
-        return ResponseEntity.status(HttpStatus.OK).body(cost);
+    public ResponseEntity<?> update(@RequestBody CostDTO costDTO) {
+        var cost = costService.updateCost(costDTO);
+        if(cost != null)
+            return ResponseEntity.status(HttpStatus.OK).body(cost);
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Расход с таким ид не найден");
     }
 
     @Operation(summary = "Delete cost")

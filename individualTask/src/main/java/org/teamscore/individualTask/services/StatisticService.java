@@ -41,8 +41,8 @@ public class StatisticService {
         List<Object[]> results = costRepository.getCategorySums(from, to);
         Map<Category, BigDecimal> categoryMap = results.stream()
                 .collect(Collectors.toMap(
-                        row -> (Category) row[0],
-                        row -> (BigDecimal) row[1]
+                        cat -> (Category) cat[0],
+                        per -> (BigDecimal) per[1]
                 ));
 
         var summaryStatistic = getStatisticByPeriod(from, to);
@@ -80,8 +80,8 @@ public class StatisticService {
         List<Object[]> results = costRepository.getTypePaymentSums(from, to);
         Map<TypePayment, BigDecimal> typePaymentMap = results.stream()
                 .collect(Collectors.toMap(
-                        row -> (TypePayment) row[0],
-                        row -> (BigDecimal) row[1]
+                        type -> (TypePayment) type[0],
+                        per -> (BigDecimal) per[1]
                 ));
 
         var summaryStatistic = getStatisticByPeriod(from, to);
@@ -118,8 +118,8 @@ public class StatisticService {
         List<Object[]> result = costRepository.getSellersSums(from, to);
         Map<String, BigDecimal> sellerMap = result.stream()
                 .collect(Collectors.toMap(
-                        row -> (String) row[0],
-                        row -> (BigDecimal) row[1]
+                        name -> (String) name[0],
+                        per -> (BigDecimal) per[1]
                 ));
 
         var summaryStatistic = getStatisticByPeriod(from, to);

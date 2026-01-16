@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.teamscore.individualTask.models.DTO.entity.TypePaymentDTO;
+import org.teamscore.individualTask.models.DTO.entity.createDTO.CreateTypePaymentDTO;
 import org.teamscore.individualTask.models.entity.TypePayment;
 import org.teamscore.individualTask.services.TypePaymentService;
 
@@ -32,21 +34,27 @@ public class TypePaymentController {
             @Parameter(description = "Type payment name")
             @RequestParam(name = "name") String name) {
         var result = typePaymentService.getTypePaymentByName(name);
-        return ResponseEntity.status(HttpStatus.OK).body(result);
+        if(result != null)
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Тип оплаты с таким названием не найден");
     }
 
     @Operation(summary = "Create type payment")
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody TypePayment typePayment) {
-        typePayment = typePaymentService.createTypePayment(typePayment);
+    public ResponseEntity<?> create(@RequestBody CreateTypePaymentDTO typePaymentDTO) {
+        var typePayment = typePaymentService.createTypePayment(typePaymentDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(typePayment);
     }
 
     @Operation(summary = "Update type payment")
     @PutMapping
-    public ResponseEntity<?> update(@RequestBody TypePayment typePayment) {
-        typePayment = typePaymentService.updateTypePayment(typePayment);
-        return ResponseEntity.status(HttpStatus.OK).body(typePayment);
+    public ResponseEntity<?> update(@RequestBody TypePaymentDTO typePaymentDTO) {
+        var typePayment = typePaymentService.updateTypePayment(typePaymentDTO);
+        if(typePayment != null)
+            return ResponseEntity.status(HttpStatus.OK).body(typePayment);
+        else
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Тип оплаты с таким ид не найден");
     }
 
     @Operation(summary = "Delete type payment")

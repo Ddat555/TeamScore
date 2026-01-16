@@ -2,6 +2,7 @@ package org.teamscore.individualTask.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ import java.util.Set;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Cost {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,4 +38,10 @@ public class Cost {
     )
     private List<Category> categories = new ArrayList<>();
 
+    public Cost( String sellerName, BigDecimal sum, TypePayment typePayment, List<Category> categories) {
+        this.sellerName = sellerName;
+        this.sum = sum;
+        this.typePayment = typePayment;
+        this.categories = categories;
+    }
 }
