@@ -25,11 +25,9 @@ public class Main {
             return;
         }
 
-        DepthVisitor visitor = new DepthVisitor(path);
 
         try {
-            Files.walkFileTree(path, visitor);
-            System.out.println(visitor.getMaxDepth());
+            System.out.println(DepthVisitor.calculateMaxDepth(path));
         } catch (IOException e) {
             System.err.println("Ошибка при обходе директории: " + e.getMessage());
             System.out.println(-1);
