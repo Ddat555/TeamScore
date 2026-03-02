@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h3>Редактор текста</h3>
+    <label>Семейство:
+        <select id="fontFamily">
+            <option value="Arial">Arial</option>
+            <option value="Georgia">Georgia</option>
+            <option value="'Courier New'">Courier New</option>
+            <option value="'Times New Roman'">Times New Roman</option>
+            <option value="Verdana">Verdana</option>
+        </select>
+    </label><br>
+    
+    <label>Размер (pt): 
+        <input type="number" id="fontSize" min="8" max="72" value="16">
+    </label><br>
+
+    <label><input type="checkbox" id="bold"> Жирный</label>
+    <label><input type="checkbox" id="italic"> Курсив</label><br>
+
+    <label><input type="radio" name="align" id="alignLeft" value="left" checked> Слева</label>
+    <label><input type="radio" name="align" id="alignCenter" value="center"> По центру</label>
+    <label><input type="radio" name="align" id="alignRight" value="right"> Справа</label><br>
+
+    <div>
+        <span>Цвет:</span><br>
+        <label>R <input type="number" id="rNum" min="0" max="255" value="0"></label>
+        <label>G <input type="number" id="gNum" min="0" max="255" value="0"></label>
+        <label>B <input type="number" id="bNum" min="0" max="255" value="0"></label>
+        <br>
+        <label>R <input type="range" id="rRange" min="0" max="255" value="0"></label><br>
+        <label>G <input type="range" id="gRange" min="0" max="255" value="0"></label><br>
+        <label>B <input type="range" id="bRange" min="0" max="255" value="0"></label><br>
+
+        <label>Выбрать цвет: <input type="color" id="colorPicker" value="#000000"></label>
+        
+        <span style="display:inline-block; width:20px; height:20px; border:1px solid #000; margin-left:8px;" id="colorPreview"></span>
+    </div>
+    <br>
+
+    <textarea id="userText" rows="5" cols="60" style="width:100%;">Произвольный текст для примера. Здесь можно написать что угодно, и все изменения шрифта будут применяться мгновенно.</textarea>
+
+    <script src="script.js"></script>
+</body>
+</html>
