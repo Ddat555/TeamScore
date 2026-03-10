@@ -32,6 +32,15 @@ function addTask() {
 }
 
 function editTask(taskIndex, columnId) {
+    const task = tasks[columnId][taskIndex];
+    
+    const newText = prompt('Редактировать задачу:', task.inputText);
+    
+    if (newText !== null && newText.trim() !== '') {
+        task.inputText = newText;
+        renderColumn(columnId);
+        saveToStorage();
+    }
     
     console.log('editTask() вызвана для задачи', taskIndex, 'в колонке', columnId);
 }
