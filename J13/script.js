@@ -45,20 +45,55 @@ function deleteTask(taskIndex, columnId) {
 
 
 function moveUp(taskId, columnId) {
-    console.log('moveUp() вызвана для задачи', taskId, 'в колонке', columnId);
+    if (taskId === 0) return;
+    const column = tasks[columnId];
+    [column[taskId], column[taskId - 1]] = [column[taskId - 1], column[taskId]];
+    
+    renderColumn(columnId);
+    saveToStorage();
 }
 
 function moveDown(taskId, columnId) {
-    console.log('moveDown() вызвана для задачи', taskId, 'в колонке', columnId);
+    const column = tasks[columnId];
+    if (taskId === column.length - 1) return;
+    [column[taskId], column[taskId + 1]] = [column[taskId + 1], column[taskId]];
+
+    renderColumn(columnId);
+    saveToStorage();
 }
 
 function moveLeft(taskId, columnId) {
-    console.log('moveLeft() вызвана для задачи', taskId, 'из колонки', columnId);
+    let prevColumn;
+    
+    if (columnId === 'inprogress') prevColumn = 'todo';
+    else if (columnId === 'done') prevColumn = 'inprogress';
+    else return;
+    
+    const task = tasks[columnId][taskId];
+    
+    deleteTask(taskId, columnId);
+    tasks[prevColumn].push(task);
+    
+    renderAllTasks();
+    saveToStorage();
+    console.log('moveLeft() из', columnId, 'в', prevColumn);
 }
 
 function moveRight(taskId, columnId) {
-
-    console.log('moveRight() вызвана для задачи', taskId, 'из колонки', columnId);
+    let nextColumn;
+    
+    if (columnId === 'todo') nextColumn = 'inprogress';
+    else if (columnId === 'inprogress') nextColumn = 'done';
+    else return;
+    
+    const task = tasks[columnId][taskId];
+    
+    deleteTask(taskId, columnId);
+    tasks[nextColumn].push(task);
+    
+    renderAllTasks();
+    saveToStorage();
+    console.log('moveRight() из', columnId, 'в', nextColumn);
 }
 
 
