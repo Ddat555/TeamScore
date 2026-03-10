@@ -28,6 +28,7 @@ function addTask() {
             break;
     }
     console.log(tasks);
+    saveToStorage();
 }
 
 function editTask(taskIndex, columnId) {
@@ -38,7 +39,7 @@ function editTask(taskIndex, columnId) {
 function deleteTask(taskIndex, columnId) {
     tasks[columnId] = tasks[columnId].filter((_, index) => index !== taskIndex);
     renderColumn(columnId);
-    
+    saveToStorage();
     console.log('deleteTask() вызвана для задачи', taskIndex, 'в колонке', columnId);
 }
 
@@ -62,7 +63,9 @@ function moveRight(taskId, columnId) {
 
 
 function clearColumn(columnId) {
-
+    tasks[columnId] = [];
+    renderColumn(columnId);
+    saveToStorage();
     console.log('clearColumn() вызвана для колонки', columnId);
 }
 
@@ -137,12 +140,25 @@ function updateCounter(columnId) {
 
 
 function saveToStorage() {
-
+    const tasksJSON = JSON.stringify(tasks);
+    localStorage.setItem('tasks', tasksJSON);
     console.log('saveToStorage() вызвана');
 }
 
 function loadFromStorage() {
-
+    const tasksJSON = localStorage.getItem('tasks');
+    
+    if (tasksJSON) {
+        tasks = JSON.parse(tasksJSON);
+    } else {
+        tasks = {
+            todo: [],
+            inprogress: [],
+            done: []
+        };
+    }
+    
+    renderAllTasks();
     console.log('loadFromStorage() вызвана');
 }
 
