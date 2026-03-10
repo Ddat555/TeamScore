@@ -30,12 +30,16 @@ function addTask() {
     console.log(tasks);
 }
 
-function editTask(taskId, columnId) {
-    console.log('editTask() вызвана для задачи', taskId, 'в колонке', columnId);
+function editTask(taskIndex, columnId) {
+    
+    console.log('editTask() вызвана для задачи', taskIndex, 'в колонке', columnId);
 }
 
-function deleteTask(taskId, columnId) {
-    console.log('deleteTask() вызвана для задачи', taskId, 'в колонке', columnId);
+function deleteTask(taskIndex, columnId) {
+    tasks[columnId] = tasks[columnId].filter((_, index) => index !== taskIndex);
+    renderColumn(columnId);
+    
+    console.log('deleteTask() вызвана для задачи', taskIndex, 'в колонке', columnId);
 }
 
 
