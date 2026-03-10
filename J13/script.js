@@ -5,8 +5,29 @@ let tasks = {
     done: []
 };
 
+
 function addTask() {
-    console.log('addTask() вызвана');
+    const inputText = document.getElementById('taskInput').value;
+    const inputSelect = document.getElementById('columnSelect').value;
+    console.log('название задачи ' + inputText)
+    console.log('статус задачи ' + inputSelect)
+    switch(inputSelect){
+        case 'inprogress':
+            tasks.inprogress.push({inputText,inputSelect})
+            renderColumn('inprogress');
+            break;
+
+        case 'todo':
+            tasks.todo.push({inputText,inputSelect})
+            renderColumn('todo');
+            break;
+
+        case 'done':
+            tasks.done.push({inputText,inputSelect})
+            renderColumn('done');
+            break;
+    }
+    console.log(tasks);
 }
 
 function editTask(taskId, columnId) {
@@ -43,23 +64,71 @@ function clearColumn(columnId) {
 
 
 function renderAllTasks() {
-
+    renderColumn('todo');
+    renderColumn('inprogress');
+    renderColumn('done');
     console.log('renderAllTasks() вызвана');
 }
 
 
 function renderColumn(columnId) {
-    console.log('renderColumn() вызвана для', columnId);
+    const container = document.getElementById(columnId + 'List');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    const columnTasks = tasks[columnId];
+    
+    columnTasks.forEach((task, index) => {
+        const taskElement = createTaskElement(task, columnId, index);
+        container.appendChild(taskElement);
+    });
+    
+    updateCounter(columnId);
 }
 
-function createTaskElement(task, columnId) {
-    console.log('createTaskElement() вызвана для задачи', task);
-    return document.createElement('div');
+function createTaskElement(task, columnId, index) {
+    const taskDiv = document.createElement('div');
+    taskDiv.className = 'task-item list-group-item list-group-item-action p-3 mb-2 rounded';
+    taskDiv.setAttribute('data-id', index);
+    taskDiv.setAttribute('data-column', columnId);
+    
+    taskDiv.innerHTML = `
+        <div class="d-flex justify-content-between align-items-center">
+            <span class="task-text" onclick="editTask(${index}, '${columnId}')">${task.inputText}</span>
+            <div class="task-actions btn-group btn-group-sm">
+                <button class="btn btn-outline-primary" onclick="moveUp(${index}, '${columnId}')" title="Вверх">
+                    <i class="bi bi-arrow-up"></i>
+                </button>
+                <button class="btn btn-outline-primary" onclick="moveDown(${index}, '${columnId}')" title="Вниз">
+                    <i class="bi bi-arrow-down"></i>
+                </button>
+                <button class="btn btn-outline-secondary" onclick="moveLeft(${index}, '${columnId}')" title="Влево">
+                    <i class="bi bi-arrow-left"></i>
+                </button>
+                <button class="btn btn-outline-secondary" onclick="moveRight(${index}, '${columnId}')" title="Вправо">
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+                <button class="btn btn-outline-danger" onclick="deleteTask(${index}, '${columnId}')" title="Удалить">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        </div>
+    `;
+    
+    taskDiv.setAttribute('draggable', 'true');
+    taskDiv.addEventListener('dragstart', handleDragStart);
+    taskDiv.addEventListener('dragover', handleDragOver);
+    taskDiv.addEventListener('drop', handleDrop);
+    
+    return taskDiv;
 }
 
 
-function updateCounters() {
-    console.log('updateCounters() вызвана');
+function updateCounter(columnId) {
+    const counterElement = document.getElementById(columnId + 'Count');
+    if (counterElement) {
+        counterElement.textContent = tasks[columnId].length;
+    }
 }
 
 
