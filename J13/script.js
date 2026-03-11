@@ -6,6 +6,11 @@ let tasks = {
 };
 
 
+let draggedItem = null;
+let draggedIndex = null;
+let draggedColumn = null;
+
+
 function addTask() {
     const inputText = document.getElementById('taskInput').value;
     const inputSelect = document.getElementById('columnSelect').value;
@@ -140,7 +145,7 @@ function renderColumn(columnId) {
 function createTaskElement(task, columnId, index) {
     const taskDiv = document.createElement('div');
     taskDiv.className = 'task-item list-group-item list-group-item-action p-3 mb-2 rounded';
-    taskDiv.setAttribute('data-id', index);
+    taskDiv.setAttribute('data-index', index);
     taskDiv.setAttribute('data-column', columnId);
     
     taskDiv.innerHTML = `
@@ -170,6 +175,7 @@ function createTaskElement(task, columnId, index) {
     taskDiv.addEventListener('dragstart', handleDragStart);
     taskDiv.addEventListener('dragover', handleDragOver);
     taskDiv.addEventListener('drop', handleDrop);
+    taskDiv.addEventListener('dragend', handleDragEnd);
     
     return taskDiv;
 }
@@ -207,16 +213,85 @@ function loadFromStorage() {
 }
 
 
+
 function handleDragStart(e) {
-    console.log('handleDragStart() вызвана');
+    const taskDiv = e.target.closest('.task-item');
+    if (!taskDiv) return;
+    
+    draggedItem = taskDiv;
+    draggedIndex = taskDiv.getAttribute('data-index');
+    draggedColumn = taskDiv.getAttribute('data-column');
+    
+    taskDiv.classList.add('dragging');
+    
+    e.dataTransfer.setData('text/plain', '');
+    e.dataTransfer.effectAllowed = 'move';
+    
+    console.log('начали перетаскивать:', draggedIndex, 'из колонки', draggedColumn);
 }
 
 function handleDragOver(e) {
     e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
 }
 
 function handleDrop(e) {
-    console.log('handleDrop() вызвана');
+    e.preventDefault();
+    
+    const targetDiv = e.target.closest('.task-item');
+    if (!targetDiv) return;
+    
+    const targetIndex = targetDiv.getAttribute('data-index');
+    const targetColumn = targetDiv.getAttribute('data-column');
+    
+    if (draggedIndex === null || draggedColumn === null) {
+        console.log('нет данных о перетаскиваемой задаче');
+        return;
+    }
+    
+    if (draggedColumn !== targetColumn) {
+        console.log('нельзя перетаскивать задачи между колонками');
+        return;
+    }
+    
+    if (draggedIndex === targetIndex) {
+        return;
+    }
+    
+    console.log('сбросили на индекс:', targetIndex);
+    
+    moveTask(parseInt(draggedIndex), parseInt(targetIndex), draggedColumn);
+    
+    if (draggedItem) {
+        draggedItem.classList.remove('dragging');
+    }
+    
+    draggedItem = null;
+    draggedIndex = null;
+    draggedColumn = null;
+}
+
+function handleDragEnd(e) {
+    const taskDiv = e.target.closest('.task-item');
+    if (taskDiv) {
+        taskDiv.classList.remove('dragging');
+    }
+    
+    draggedItem = null;
+    draggedIndex = null;
+    draggedColumn = null;
+    
+    console.log('перетаскивание закончено');
+}
+
+function moveTask(fromIndex, toIndex, columnId) {
+    const column = tasks[columnId];
+    
+    const [movedTask] = column.splice(fromIndex, 1);
+    column.splice(toIndex, 0, movedTask);
+    
+    renderColumn(columnId);
+    saveToStorage();
 }
 
 

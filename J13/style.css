@@ -3,7 +3,7 @@
 }
 
 .task-item {
-    cursor: pointer;
+    cursor: grab;
     transition: all 0.2s;
     border-left: 4px solid transparent;
 }
@@ -38,4 +38,9 @@
 .task-item.dragging {
     opacity: 0.5;
     transform: scale(0.98);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.task-item:active{
+    cursor: grabbing;
 }
