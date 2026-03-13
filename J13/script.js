@@ -14,8 +14,6 @@ let draggedColumn = null;
 function addTask() {
     const inputText = document.getElementById('taskInput').value;
     const inputSelect = document.getElementById('columnSelect').value;
-    console.log('название задачи ' + inputText)
-    console.log('статус задачи ' + inputSelect)
     switch(inputSelect){
         case 'inprogress':
             tasks.inprogress.push({inputText,inputSelect})
@@ -32,7 +30,6 @@ function addTask() {
             renderColumn('done');
             break;
     }
-    console.log(tasks);
     saveToStorage();
 }
 
@@ -46,15 +43,12 @@ function editTask(taskIndex, columnId) {
         renderColumn(columnId);
         saveToStorage();
     }
-    
-    console.log('editTask() вызвана для задачи', taskIndex, 'в колонке', columnId);
 }
 
 function deleteTask(taskIndex, columnId) {
     tasks[columnId] = tasks[columnId].filter((_, index) => index !== taskIndex);
     renderColumn(columnId);
     saveToStorage();
-    console.log('deleteTask() вызвана для задачи', taskIndex, 'в колонке', columnId);
 }
 
 
@@ -90,7 +84,6 @@ function moveLeft(taskId, columnId) {
     
     renderAllTasks();
     saveToStorage();
-    console.log('moveLeft() из', columnId, 'в', prevColumn);
 }
 
 function moveRight(taskId, columnId) {
@@ -107,7 +100,6 @@ function moveRight(taskId, columnId) {
     
     renderAllTasks();
     saveToStorage();
-    console.log('moveRight() из', columnId, 'в', nextColumn);
 }
 
 
@@ -115,7 +107,6 @@ function clearColumn(columnId) {
     tasks[columnId] = [];
     renderColumn(columnId);
     saveToStorage();
-    console.log('clearColumn() вызвана для колонки', columnId);
 }
 
 
@@ -123,7 +114,6 @@ function renderAllTasks() {
     renderColumn('todo');
     renderColumn('inprogress');
     renderColumn('done');
-    console.log('renderAllTasks() вызвана');
 }
 
 
@@ -192,7 +182,6 @@ function updateCounter(columnId) {
 function saveToStorage() {
     const tasksJSON = JSON.stringify(tasks);
     localStorage.setItem('tasks', tasksJSON);
-    console.log('saveToStorage() вызвана');
 }
 
 function loadFromStorage() {
@@ -209,7 +198,6 @@ function loadFromStorage() {
     }
     
     renderAllTasks();
-    console.log('loadFromStorage() вызвана');
 }
 
 
@@ -227,7 +215,6 @@ function handleDragStart(e) {
     e.dataTransfer.setData('text/plain', '');
     e.dataTransfer.effectAllowed = 'move';
     
-    console.log('начали перетаскивать:', draggedIndex, 'из колонки', draggedColumn);
 }
 
 function handleDragOver(e) {
@@ -245,12 +232,10 @@ function handleDrop(e) {
     const targetColumn = targetDiv.getAttribute('data-column');
     
     if (draggedIndex === null || draggedColumn === null) {
-        console.log('нет данных о перетаскиваемой задаче');
         return;
     }
     
     if (draggedColumn !== targetColumn) {
-        console.log('нельзя перетаскивать задачи между колонками');
         return;
     }
     
@@ -258,7 +243,6 @@ function handleDrop(e) {
         return;
     }
     
-    console.log('сбросили на индекс:', targetIndex);
     
     moveTask(parseInt(draggedIndex), parseInt(targetIndex), draggedColumn);
     
@@ -281,7 +265,6 @@ function handleDragEnd(e) {
     draggedIndex = null;
     draggedColumn = null;
     
-    console.log('перетаскивание закончено');
 }
 
 function moveTask(fromIndex, toIndex, columnId) {
@@ -296,6 +279,5 @@ function moveTask(fromIndex, toIndex, columnId) {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Страница загружена, инициализация...');
     loadFromStorage();
 });
